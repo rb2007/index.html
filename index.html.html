@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Rini’s Valentine 💖</title>
+<style>
+body{
+    margin:0;
+    font-family:'Poppins',sans-serif;
+    text-align:center;
+    background:linear-gradient(135deg,#ff758c,#ff7eb3);
+    color:white;
+    overflow:hidden;
+}
+
+.container{
+    margin-top:100px;
+}
+
+select{
+    padding:12px;
+    margin:20px;
+    border-radius:12px;
+    border:none;
+    font-size:16px;
+    width:320px;
+}
+
+button{
+    padding:15px 40px;
+    font-size:20px;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+    background:white;
+    color:#ff4e8a;
+    font-weight:bold;
+}
+
+.heart{
+    position:fixed;
+    font-size:20px;
+    animation:floatUp 6s linear infinite;
+}
+
+@keyframes floatUp{
+    0%{transform:translateY(100vh);opacity:1;}
+    100%{transform:translateY(-10vh);opacity:0;}
+}
+
+.hidden{display:none;}
+</style>
+</head>
+
+<body>
+
+<div class="container" id="mainSection">
+<h1>Hi Handsome 😌</h1>
+<h2>Something very important is loading...</h2>
+<div id="countdown" style="font-size:45px;">3</div>
+
+<div id="questionSection" class="hidden">
+<h1>Will you be Rini’s Valentine for life? 💍❤️</h1>
+
+<select onchange="handleAnswer(this)">
+<option>Select carefully...</option>
+<option>Yes, obviously Rini ❤️</option>
+<option>Forever yours, Rini 💕</option>
+<option>Yes yes yes, I’m yours 😌</option>
+<option>No 😅</option>
+</select>
+</div>
+</div>
+
+<div id="warningSection" class="hidden">
+<h1>Ohhh you selected NO? 😳</h1>
+<h2>That must be a mistake because Rini is adorable 🥺</h2>
+<h2>System recommends pressing the BIG YES button below 😌</h2>
+<button onclick="finalYes()">YES YES YES ❤️</button>
+</div>
+
+<script>
+// Countdown
+let timeLeft=3;
+let countdownEl=document.getElementById("countdown");
+
+let timer=setInterval(function(){
+    timeLeft--;
+    countdownEl.innerHTML=timeLeft;
+    if(timeLeft<=0){
+        clearInterval(timer);
+        countdownEl.style.display="none";
+        document.getElementById("questionSection").classList.remove("hidden");
+    }
+},1000);
+
+// Floating Hearts
+function createHeart(){
+    const heart=document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML="❤️";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.fontSize=(Math.random()*20+15)+"px";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),6000);
+}
+setInterval(createHeart,300);
+
+// Handle dropdown
+function handleAnswer(select){
+    if(select.selectedIndex==4){
+        document.getElementById("mainSection").classList.add("hidden");
+        document.getElementById("warningSection").classList.remove("hidden");
+    } else if(select.selectedIndex>0){
+        finalYes();
+    }
+}
+
+// Final celebration
+function finalYes(){
+    document.body.innerHTML=`
+    <h1 style="margin-top:150px;font-size:50px;">YAYYYYYY 💕</h1>
+    <h2>You are officially Rini’s Valentine for life 😭💍</h2>
+    <img src="https://media.giphy.com/media/26BRv0ThflsHCqDrG/giphy.gif"
+    style="margin-top:30px;width:320px;border-radius:20px;">
+    `;
+    document.body.style.background="linear-gradient(135deg,#ff4e8a,#ff99ac)";
+}
+</script>
+
+</body>
+</html>
